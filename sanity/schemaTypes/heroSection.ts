@@ -50,6 +50,12 @@ export const heroSection = defineType({
       type: 'string',
       description: 'Anchor link or URL for the primary button. E.g. "#services"',
       initialValue: '#services',
+      validation: (r) =>
+        r.custom((value) => {
+          if (!value) return true;
+          if (/^(#|\/(?!\/)|https?:)/i.test(value)) return true;
+          return 'Must be an anchor (#id), relative path (/page), or http(s) URL';
+        }),
     }),
     defineField({
       name: 'secondaryButtonText',
@@ -64,6 +70,12 @@ export const heroSection = defineType({
       type: 'string',
       description: 'Anchor link or URL for the secondary button. E.g. "#full-catalog"',
       initialValue: '#full-catalog',
+      validation: (r) =>
+        r.custom((value) => {
+          if (!value) return true;
+          if (/^(#|\/(?!\/)|https?:)/i.test(value)) return true;
+          return 'Must be an anchor (#id), relative path (/page), or http(s) URL';
+        }),
     }),
     defineField({
       name: 'heroImage',

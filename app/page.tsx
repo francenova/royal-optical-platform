@@ -101,9 +101,11 @@ export default async function LandingPage() {
       </main>
       <Footer branding={branding} contact={contact} footer={footer} />
       <WhatsAppButton contact={contact} />
+      {/* Escaping `<` prevents a CMS field containing "</script>" from
+          breaking out of this tag — JSON.stringify alone doesn't escape it. */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
       />
     </div>
   );

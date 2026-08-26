@@ -1,6 +1,7 @@
 import type { HeroSectionData } from '@/lib/siteSettings';
 import type { ContactSectionData } from '@/lib/siteSettings';
 import { urlFor } from '@/lib/sanity/client';
+import { safeHref } from '@/lib/safeHref';
 
 export const FALLBACK_HERO_IMAGE =
   'https://lh3.googleusercontent.com/aida-public/AB6AXuDX3_5-hJobPa2qrQJgAHuhIWG3f4_-8BHexA67QGWDm69m_GbQFTjrLYBQs2ObbWJzc0jpJ5cykFvvtLB1TAdwkaqIA19yPUCYh5KK899YbwRYNssDkMae8eKwgB0irLb7qEBO5Q_lYpNqC_GW5dOIQN3xcHdAI_6803FlqNwo3eE6Z2RlYzjTmOnPtizblwV8TVJ8WiLtDOgy3beOJkRrJr-AurUnhFYZpT-r09p9l25SmEPrGafdm7BSsskjfaFN5BtcBrGhjiNw5A';
@@ -36,13 +37,13 @@ export function Hero({
           </p>
           <div className="flex flex-col md:flex-row md:flex-wrap gap-3 md:gap-4">
             <a
-              href={hero.primaryButtonLink}
+              href={safeHref(hero.primaryButtonLink, '#services')}
               className="btn-magnetic bg-primary text-on-primary px-8 md:px-10 py-4 rounded-full font-body-std uppercase tracking-widest hover:bg-primary-container transition-all shadow-lg red-glow text-center active:scale-95"
             >
               {hero.primaryButtonText}
             </a>
             <a
-              href={hero.secondaryButtonLink}
+              href={safeHref(hero.secondaryButtonLink, '#full-catalog')}
               className="btn-magnetic bg-white md:bg-glass-white border border-primary/20 text-primary px-8 md:px-10 py-4 rounded-full font-body-std uppercase tracking-widest transition-all backdrop-blur-md text-center active:scale-95"
             >
               {hero.secondaryButtonText}

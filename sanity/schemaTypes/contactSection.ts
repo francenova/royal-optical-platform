@@ -54,12 +54,14 @@ export const contactSection = defineType({
       title: 'Google Maps — Embed URL',
       type: 'url',
       description: 'URL used for the embedded map iframe. Get this from Google Maps → Share → Embed.',
+      validation: (r) => r.uri({ scheme: ['http', 'https'] }),
     }),
     defineField({
       name: 'mapDirectionsUrl',
       title: 'Google Maps — Directions URL',
       type: 'url',
       description: 'URL that opens Google Maps with directions to the clinic.',
+      validation: (r) => r.uri({ scheme: ['http', 'https'] }),
     }),
   ],
   preview: {

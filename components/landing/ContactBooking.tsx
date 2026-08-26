@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import type { ContactSectionData } from '@/lib/siteSettings';
+import { safeHref } from '@/lib/safeHref';
 
 type SubmitState = 'idle' | 'sending' | 'sent' | 'error';
 
@@ -156,7 +157,7 @@ export function ContactBooking({ contact }: { contact: ContactSectionData }) {
 {contact.address}
               </p>
               <a
-                href={contact.mapDirectionsUrl}
+                href={safeHref(contact.mapDirectionsUrl)}
                 target="_blank"
                 rel="noopener"
                 className="pointer-events-auto inline-flex items-center gap-2 text-primary font-label-mono text-xs uppercase hover:text-primary-container transition-colors"
@@ -174,7 +175,7 @@ export function ContactBooking({ contact }: { contact: ContactSectionData }) {
 {contact.address}
             </p>
             <a
-              href={contact.mapDirectionsUrl}
+              href={safeHref(contact.mapDirectionsUrl)}
               target="_blank"
               rel="noopener"
               className="inline-flex items-center gap-2 text-primary font-label-mono text-xs uppercase"
