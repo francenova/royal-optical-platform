@@ -69,3 +69,13 @@ npm run seed
 Idempotent — pushes the hardcoded fallback content (including uploading
 images) into Sanity documents matching the IDs above. Safe to re-run; it
 overwrites the same documents rather than duplicating them.
+
+## Deploy on Vercel
+
+The easiest way to deploy is using [Vercel Platform](https://vercel.com/new).
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/francenova/royal-optical-platform)
+
+Remember to set the environment variables listed above (plus
+`SANITY_REVALIDATE_SECRET` and `RESEND_API_KEY` — see `.env.example`) in the
+Vercel project's settings before deploying.
