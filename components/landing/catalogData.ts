@@ -27,7 +27,7 @@ export const FRAMES_SMALL = [
     size: 'small' as const,
     code: 'FR-04',
     label: 'Premium Frames',
-    alt: 'Premium',
+    alt: 'Premium eyewear frames at Royal Opticals',
     src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBCd8XRblEjcX3szwCwF98jc1aPh_09obmIovnGNn-JtGOFYvbpzvwFGvCFPd0UO7-9MvHuFPgkXSWVvPGQwwJNXTzo-CEEelV51JcrQgyDJTwMCIbq6kXCLDUxgUbaltv44EWkIJVGb4AciT-_esSBETAB1dWRUPFa0NvlAyOuZptwlh6YFEG1c2CeICYFhL2Wg6yYCU30s7quxDpuz2cXCcSrJLVEtnsC6l3Vec4-D7mOI5aYEdB311cVS2IeL4x6aGT8_mrvZKA',
   },
   {
@@ -81,25 +81,25 @@ export const LENSES = [
   {
     code: 'LN-05',
     label: 'High-Index',
-    alt: 'High-Index',
+    alt: 'High-index thin optical lens',
     src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBZ28mDicjLEBBf65tqCXTKJiuGbzYcfoPpwDVQTcXo9OhCFH93yZaDm0wAA1BdMhpYFq6ocZCaGCchqd2xKgpUPkoFn0kIqAMSldOnAl2W17QQkeb-fepYTufUZUUDn02CeYrioVMcFAicVgNOdEBoh9rzi8qbzJ07UMOCLK1b9pXFVo2BwbWgcSSgXqAZaRbo8SgSBNDt7PCgRQ-B0lbR2ae2U5RNdS_8x76cMyFks2516AGWCwYimBIvlLdtmN9Mt0Exz3bX4ng',
   },
   {
     code: 'LN-06',
     label: 'Polycarbonate',
-    alt: 'Polycarbonate',
+    alt: 'Impact-resistant polycarbonate optical lens',
     src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB7dtf7KNXT4gfEaBtHu5PbqVC-JjdLz1dSYOJ3VAa_exn0EEz8ohUFEsfll78efa1L2QD1uOjJG5_kQigPRdbZCeg8PUaa0_vEVB24dw6NlrRYRpkICPfjrSMlTPo5a03opOQ8hmnmSSuAB0IK9av3iySD7knO5yYSiWckj8mqK2sPibf3ODiZ6JQNs6pZUbQtcmywemM6T9gciGD3_G1t1qcMM7C6v7vcbO0jWi1GveUFmBvMkmIMzhkfwQuQte47b7E4ERM_bN4',
   },
   {
     code: 'LN-07',
     label: 'DriveWear',
-    alt: 'DriveWear',
+    alt: 'DriveWear photochromic driving lens',
     src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCcthN0chde77HnZY77EXAYrvG8ZWAYdkVSaZMsAht1wAlAU2JPps0w-kzRRM8HySpzikPzO36hFm7Hppu5-DkxV4Kj0b6xQChtBA6xc8x74-5GUqPD-fk2qnRHusvEd3e_B8oJXyUyZeqjCYAYgN4uEItCQOLrz1OrZJJ8AzeQR5dnJ5Z5xqVvOFQ-pMUJTkJglvG1_ITGyBXi4wkq4eChdvWHRX8Pqave8GIm-Fl6l7n_fOllSjyxE958EPL2wW_tspHUibuxqQU',
   },
   {
     code: 'LN-08',
     label: 'Contact Lenses',
-    alt: 'Contact Lenses',
+    alt: 'Soft contact lenses on a fingertip',
     src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDP0VX3LOOGAuBSowl69VoCPICjaLc1XVRWqit_EIZhVFWiTCA7NHEt1am2fdtsNNmUet3Z4mojAJnXe8HtXykpVnI33gSNqIn6kKBg5torGrDxz2GP72hEzlyD4r-DvqK34ViFtlQHIh9Ll2YeG20apPohS9wk6CLFulwx-DGqPIaNtyrAGKtsbHTF6u8HnVr0lKSdm3DKzVGhGeE0lmR09AnyaOTlXSLT3Efhj_GZzLZuIHYCgLHIjU4IeYquGX2iJ2x2KfkgxCo',
   },
 ];
@@ -108,7 +108,7 @@ export const CONTACT_LENSES = [
   {
     code: 'CL-01',
     label: 'Daily Disposable',
-    alt: 'Daily Disposable',
+    alt: 'Daily disposable contact lenses — wear once and throw away',
     description: 'Wear once and throw away.',
     icon: 'calendar_today',
     src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBCc7bIHgSLKLlfuQs4sbZJ7EkP-RxecmAcUPg7shnUErQUDk2IVEEaOWCnKhDQIfM3TqqpmqddkAra7cZd547eqBXzGJ7nuhFRLZmwu39I-mum4EpuQUVDekFnPcDBDOx0hPV_UyKCPjhk8QF_rrzWz_2is06MzhMt2KUFsi2VMs5oKIZl56z4yGFuccG5K6a-LddW2kJ9wkMyCUFAsTNAbZXdkqO69vdEwbuCzIOpdAns3hrFuBCrnHcGhPvZCF0ytWTEL4tQZ3c',
@@ -116,7 +116,7 @@ export const CONTACT_LENSES = [
   {
     code: 'CL-02',
     label: 'Monthly Lenses',
-    alt: 'Monthly Lenses',
+    alt: 'Monthly contact lenses — wear daily and replace every month with proper cleaning',
     description: 'Wear daily and replace every month with proper cleaning.',
     icon: 'sync',
     src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB37rNmWILNrmMmoNPxfaXUGaT1VAawuXYGEjtIzakAoWPv49py0P75Ol94K4Aym-h7yVCAfTGBFbSgGHy_YuvxlnVzOkEkuvpqb9lcRqKbH9M5j2ataRFY_WKf4xpJYTDEYf01oNfXjvJ_sKLTeYptDSRT1L0DkTjyxHL3UDEON22rgBdu68DtDpDEO3TN_KALURUWExpeNOO4TVWJPvJGaKzp7-qLD_X2AB-5YJ1GKNYIiMJ2TmiBr5B5STEZLHcCmXNZRs8sIr8',
@@ -124,7 +124,7 @@ export const CONTACT_LENSES = [
   {
     code: 'CL-03',
     label: 'Toric Lenses',
-    alt: 'Toric Lenses',
+    alt: 'Toric contact lenses designed for astigmatism',
     description: 'Designed for astigmatism.',
     icon: 'adjust',
     src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCCj_gJpHE-8P5Q8Dw072aMOCRoQDybQJZjOICUmDX0boPMH3ottbieBLQ0Nsk_iIzxEHDrlJ6JBEYiADsB4-LDps4SKSLAp2nxQCcUBDdLdVJOLSAorodFV7PS4SBie5aOtZSRh4yyZqBwX3mALmjDSbOmMG-_t10jDzyN-i7WpQ09i5XJav3Ot_dea-Ir0yCGOYmg-GLcvLmptBXHb2YbdJfj_tX43JCSP6VM4_fDDLCd0VBUCgOgwW4DwJ7Jvw9diCMYogMggUo',
@@ -132,7 +132,7 @@ export const CONTACT_LENSES = [
   {
     code: 'CL-04',
     label: 'Multifocal Lenses',
-    alt: 'Multifocal Lenses',
+    alt: 'Multifocal contact lenses for near and distance vision',
     description: 'Help with both near and distance vision.',
     icon: 'layers',
     src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAZ5dsmON2uMM51GI3uBjnQ7fs7AF3AP8e4pLOExhENlZ5dd5XCiunqSt9lSoIr_nNRVa4x_USfRXnsV3_2WJCLt9qjisNQ5wQqFRPsxT5qFv2D9wPc09bdjGbErlAOJtFmVADc_0gONk3okB-dDNE5sLS0Lgx5C0yhdPczpSNTIRkWgyx_2QkeH5Fj4s_vdLedBlSPeKVe279IM9juxK-lSYIddSdNKmOWRkMrfbZBtYlsFxMN4U462xTCWXAXfRogxTB-tBtQ6KI',

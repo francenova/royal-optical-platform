@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import type { BrandingSectionData } from '@/lib/siteSettings';
+import { urlFor } from '@/lib/sanity/client';
 
 const NAV_LINKS = [
   { href: '#clinic', label: 'Clinic' },
@@ -10,8 +12,12 @@ const NAV_LINKS = [
   { href: '#contact', label: 'Contact' },
 ];
 
-export function Header() {
+const FALLBACK_LOGO_SRC =
+  'https://lh3.googleusercontent.com/aida-public/AB6AXuDVqgEgOZ1BhY5OiM3KUdClVlhjYzIRn0ecQsyOdTAgsqi_AXVjP9I84IxlhBS3__zNeWzFJKpzZGhCXI6ecWWPqcU3Xc9vfjfUfMEC0kzStlA_KMSYZ47XnTN35h7qu8Aa795TLBTJT6lAW3B9j90V-4GmHO7ACLcENcuenRGWcDdNcL_5gGCDOzAAw_cPminplD2-Vs9Fq-ZsNpxKPIY8S82qw-Kl43FG3il7AJl-Xf_tNd7NRn-TlHZSE0FfeISrf-sNuWNFsGw';
+
+export function Header({ branding }: { branding: BrandingSectionData }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const logoSrc = branding.logo ? urlFor(branding.logo).width(200).height(200).url() : FALLBACK_LOGO_SRC;
 
   return (
     <header
@@ -22,12 +28,12 @@ export function Header() {
         <a className="flex items-center gap-2 md:gap-3" href="#home">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            alt="Royal Opticals Logo"
+            alt={`${branding.clinicName || 'Royal Opticals'} Logo`}
             className="w-auto object-contain h-11 md:h-20"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVqgEgOZ1BhY5OiM3KUdClVlhjYzIRn0ecQsyOdTAgsqi_AXVjP9I84IxlhBS3__zNeWzFJKpzZGhCXI6ecWWPqcU3Xc9vfjfUfMEC0kzStlA_KMSYZ47XnTN35h7qu8Aa795TLBTJT6lAW3B9j90V-4GmHO7ACLcENcuenRGWcDdNcL_5gGCDOzAAw_cPminplD2-Vs9Fq-ZsNpxKPIY8S82qw-Kl43FG3il7AJl-Xf_tNd7NRn-TlHZSE0FfeISrf-sNuWNFsGw"
+            src={logoSrc}
           />
           <span className="font-display-lg text-base md:text-xl text-primary tracking-tight uppercase">
-            Royal Opticals
+            {branding.clinicName || 'Royal Opticals'}
           </span>
         </a>
 

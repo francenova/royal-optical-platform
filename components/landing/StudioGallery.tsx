@@ -1,7 +1,16 @@
 import { Carousel } from './Carousel';
 import type { GallerySectionData } from '@/lib/siteSettings';
 import { urlFor } from '@/lib/sanity/client';
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
+// NOTE: the frameWall/styleBar/fittingStudio images (both these fallbacks and
+// the current Sanity `gallerySection` documents seeded from them) are
+// mismatched AI-prototyping stock photos — a home picture-frame wall, a hair
+// salon, and a golf club fitting studio, none of which show anything related
+// to eyewear. Their alt text below is deliberately left minimal rather than
+// written as a confident description of content that isn't actually there.
+// Replace the images in Sanity Studio with real (or at least on-topic) photos,
+// then write proper descriptive alt text for them.
 const FALLBACK_IMAGES = {
   examRoom:
     'https://lh3.googleusercontent.com/aida-public/AB6AXuDy_f6n3tnXMXCGG1Zu3ZQ8XiAKa91wXzy0ZewduN_0C-E6VdSQMsP0UvhtT0JmnjVC2BkKCxjRZTmxxuXLboFIGd874qVrEXlpbIfTHNOixdb3Hoa4NogN60ueNk37LWGKDzVYVp50gSiee2ZnFnxBIabJecPf__oH6pR5f-q4O3TcHfmkaRwmqm38kpTC7BJx-C-yblovGcFr_ink5aJAZoamdhxUD87mbvAVhoPT1WOB8KIDsmGqp-R-oTwxS7FMuRuuLvhxE4s',
@@ -14,17 +23,17 @@ const FALLBACK_IMAGES = {
 };
 
 export function StudioGallery({ gallery }: { gallery: GallerySectionData }) {
-  const getImageUrl = (source: import('sanity').Image | undefined | null, fallback: string) => {
+  const getImageUrl = (source: SanityImageSource | undefined | null, fallback: string) => {
     if (source) {
       return urlFor(source).width(900).quality(80).url();
     }
     return fallback;
   };
 
-  const examRoom = getImageUrl(gallery.examRoomImage as any, FALLBACK_IMAGES.examRoom);
-  const frameWall = getImageUrl(gallery.frameWallImage as any, FALLBACK_IMAGES.frameWall);
-  const styleBar = getImageUrl(gallery.styleBarImage as any, FALLBACK_IMAGES.styleBar);
-  const fittingStudio = getImageUrl(gallery.fittingStudioImage as any, FALLBACK_IMAGES.fittingStudio);
+  const examRoom = getImageUrl(gallery.examRoomImage, FALLBACK_IMAGES.examRoom);
+  const frameWall = getImageUrl(gallery.frameWallImage, FALLBACK_IMAGES.frameWall);
+  const styleBar = getImageUrl(gallery.styleBarImage, FALLBACK_IMAGES.styleBar);
+  const fittingStudio = getImageUrl(gallery.fittingStudioImage, FALLBACK_IMAGES.fittingStudio);
 
   return (
     <section className="bg-background py-section-py-mobile md:py-section-py-desktop px-margin-mobile md:px-margin-desktop">
@@ -40,7 +49,11 @@ export function StudioGallery({ gallery }: { gallery: GallerySectionData }) {
           <div className="mb-4" data-animate="fade-up">
             <div className="relative rounded-2xl overflow-hidden glass-card aspect-[4/3]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img alt="Exam Room" className="w-full h-full object-cover" src={examRoom} />
+              <img
+                alt="Eye examination room at Royal Opticals with clinical diagnostic equipment"
+                className="w-full h-full object-cover"
+                src={examRoom}
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
               <div className="absolute bottom-6 left-6">
                 <h3 className="font-headline-sm text-white font-bold uppercase tracking-wider">Exam Room</h3>
@@ -85,7 +98,7 @@ export function StudioGallery({ gallery }: { gallery: GallerySectionData }) {
           <div className="col-span-6 relative rounded-2xl overflow-hidden glass-card h-[600px] group">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              alt="Exam Room"
+              alt="Eye examination room at Royal Opticals with clinical diagnostic equipment"
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               src={examRoom}
             />

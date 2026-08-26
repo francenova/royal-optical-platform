@@ -3,20 +3,40 @@
 import { useState } from 'react';
 import type { ContactSectionData } from '@/lib/siteSettings';
 
+type SubmitState = 'idle' | 'sending' | 'sent' | 'error';
+
 export function ContactBooking({ contact }: { contact: ContactSectionData }) {
   const [form, setForm] = useState({ name: '', email: '', phone: '', service: '', date: '' });
+  const [status, setStatus] = useState<SubmitState>('idle');
 
-  function handleSubmit(e: React.FormEvent) {
+  // Enter moves focus to the next field instead of submitting the form early.
+  function focusNextField(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key !== 'Enter') return;
     e.preventDefault();
-    const subject = encodeURIComponent('Appointment Request - ' + (form.name || 'Royal Opticals Website'));
-    const body = encodeURIComponent(
-      'Name: ' + form.name + '\n' +
-        'Email: ' + form.email + '\n' +
-        'Phone: ' + (form.phone || 'Not provided') + '\n' +
-        'Service Required: ' + (form.service || 'Not specified') + '\n' +
-        'Preferred Date: ' + (form.date || 'Not specified')
+    const form = e.currentTarget.form;
+    if (!form) return;
+    const focusable = Array.from(
+      form.querySelectorAll<HTMLElement>('input, select, textarea, button[type="submit"]')
     );
-    window.location.href = `mailto:${contact.email}?subject=${subject}&body=${body}`;
+    const next = focusable[focusable.indexOf(e.currentTarget) + 1];
+    next?.focus();
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setStatus('sending');
+    try {
+      const res = await fetch('/api/booking', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error('Request failed');
+      setStatus('sent');
+      setForm({ name: '', email: '', phone: '', service: '', date: '' });
+    } catch {
+      setStatus('error');
+    }
   }
 
   return (
@@ -41,6 +61,7 @@ export function ContactBooking({ contact }: { contact: ContactSectionData }) {
                 placeholder="John Doe"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
+                onKeyDown={focusNextField}
                 className="w-full bg-transparent border-b-[1.5px] border-outline-variant focus:border-primary border-t-0 border-x-0 focus:ring-0 px-0 py-3 font-body-std text-body-lead placeholder:opacity-30"
               />
             </div>
@@ -54,6 +75,7 @@ export function ContactBooking({ contact }: { contact: ContactSectionData }) {
                 placeholder="john@example.com"
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
+                onKeyDown={focusNextField}
                 className="w-full bg-transparent border-b-[1.5px] border-outline-variant focus:border-primary border-t-0 border-x-0 focus:ring-0 px-0 py-3 font-body-std text-body-lead placeholder:opacity-30"
               />
             </div>
@@ -66,6 +88,7 @@ export function ContactBooking({ contact }: { contact: ContactSectionData }) {
                 placeholder="+91 90000 00000"
                 value={form.phone}
                 onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                onKeyDown={focusNextField}
                 className="w-full bg-transparent border-b-[1.5px] border-outline-variant focus:border-primary border-t-0 border-x-0 focus:ring-0 px-0 py-3 font-body-std text-body-lead placeholder:opacity-30"
               />
             </div>
@@ -78,6 +101,7 @@ export function ContactBooking({ contact }: { contact: ContactSectionData }) {
                 placeholder="e.g. Comprehensive Exam"
                 value={form.service}
                 onChange={(e) => setForm({ ...form, service: e.target.value })}
+                onKeyDown={focusNextField}
                 className="w-full bg-transparent border-b-[1.5px] border-outline-variant focus:border-primary border-t-0 border-x-0 focus:ring-0 px-0 py-3 font-body-std text-body-lead placeholder:opacity-30"
               />
             </div>
@@ -89,16 +113,28 @@ export function ContactBooking({ contact }: { contact: ContactSectionData }) {
                 type="date"
                 value={form.date}
                 onChange={(e) => setForm({ ...form, date: e.target.value })}
+                onKeyDown={focusNextField}
                 className="w-full bg-transparent border-b-[1.5px] border-outline-variant focus:border-primary border-t-0 border-x-0 focus:ring-0 px-0 py-3 font-body-std text-body-lead"
               />
             </div>
             <div className="md:col-span-full md:mt-4">
               <button
                 type="submit"
-                className="w-full bg-primary text-on-primary py-4 md:py-5 rounded-full font-label-mono uppercase tracking-[3px] md:tracking-[4px] text-sm md:text-base hover:bg-primary-container transition-all active:scale-95 shadow-xl red-glow"
+                disabled={status === 'sending'}
+                className="w-full bg-primary text-on-primary py-4 md:py-5 rounded-full font-label-mono uppercase tracking-[3px] md:tracking-[4px] text-sm md:text-base hover:bg-primary-container transition-all active:scale-95 shadow-xl red-glow disabled:opacity-60 disabled:active:scale-100"
               >
-                Confirm Booking
+                {status === 'sending' ? 'Sending…' : 'Confirm Booking'}
               </button>
+              {status === 'sent' && (
+                <p className="mt-3 text-sm text-primary font-body-std" role="status">
+                  Thanks — your request has been sent. We&apos;ll be in touch shortly.
+                </p>
+              )}
+              {status === 'error' && (
+                <p className="mt-3 text-sm text-red-600 font-body-std" role="alert">
+                  Something went wrong sending your request. Please call or WhatsApp us instead.
+                </p>
+              )}
             </div>
           </form>
         </div>

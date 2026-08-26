@@ -8,7 +8,7 @@ export async function FAQ() {
     const { FAQS_QUERY } = await import('@/lib/sanity/queries');
     const docs = await sanityClient.fetch(FAQS_QUERY);
     if (docs?.length) {
-      faqs = docs.map((d: any) => ({ q: d.question, a: d.answer }));
+      faqs = docs.map((d: { question: string; answer: string }) => ({ q: d.question, a: d.answer }));
     }
   } catch {
     // Sanity not reachable yet — fallback data above is used.

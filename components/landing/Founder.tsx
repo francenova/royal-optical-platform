@@ -27,12 +27,9 @@ export function Founder({ founder }: { founder: FounderSectionData }) {
             className="absolute w-36 h-32 md:w-48 md:h-40 lg:w-64 lg:h-56 rounded-2xl overflow-hidden border border-outline-variant shadow-xl -translate-x-[70px] -translate-y-[70px] md:-translate-x-[85px] md:-translate-y-[110px] lg:-translate-x-28 lg:-translate-y-32 -rotate-6 z-0"
             data-animate="fade-left"
           >
+            {/* Decorative accent photo behind the founder portrait — empty alt is correct here (no informative content of its own) */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              alt="Cozy home library backdrop"
-              className="w-full h-full object-cover"
-              src={bgUrl}
-            />
+            <img alt="" className="w-full h-full object-cover" src={bgUrl} />
           </div>
           <div
             className="relative w-52 h-64 md:w-64 md:h-72 lg:w-[380px] lg:h-[440px] rounded-2xl overflow-hidden border-4 border-white shadow-2xl z-10 translate-x-3 translate-y-4 md:translate-x-4 md:translate-y-6 lg:translate-y-10"
@@ -40,7 +37,7 @@ export function Founder({ founder }: { founder: FounderSectionData }) {
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              alt="Founder Portrait"
+              alt="Portrait of the founder of Royal Opticals"
               className="w-full h-full object-cover"
               src={portraitUrl}
             />

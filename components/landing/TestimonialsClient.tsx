@@ -74,7 +74,11 @@ function TestimonialCard({ t }: { t: (typeof FALLBACK_TESTIMONIALS)[number] }) {
       <p className="font-body-std italic text-on-surface-variant leading-relaxed">&ldquo;{t.quote}&rdquo;</p>
       <div className="flex items-center gap-4 mt-4">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img alt={t.name} className="w-12 h-12 rounded-full object-cover" src={t.src} />
+        <img
+          alt={t.role ? `${t.name}, ${t.role} — Royal Opticals patient` : `${t.name} — Royal Opticals patient`}
+          className="w-12 h-12 rounded-full object-cover"
+          src={t.src}
+        />
         <div>
           <p className="font-body-lead font-bold text-on-surface">{t.name}</p>
           <p className="font-label-mono text-xs uppercase text-on-surface-variant opacity-70">{t.role}</p>

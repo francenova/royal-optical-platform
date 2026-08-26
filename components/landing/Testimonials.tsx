@@ -1,4 +1,12 @@
 import { TestimonialsClient, FALLBACK_TESTIMONIALS } from './TestimonialsClient';
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
+
+interface TestimonialDoc {
+  name: string;
+  role?: string;
+  quote: string;
+  photo: SanityImageSource;
+}
 
 export async function Testimonials() {
   let testimonials = FALLBACK_TESTIMONIALS;
@@ -8,7 +16,7 @@ export async function Testimonials() {
     const { TESTIMONIALS_QUERY } = await import('@/lib/sanity/queries');
     const docs = await sanityClient.fetch(TESTIMONIALS_QUERY);
     if (docs?.length) {
-      testimonials = docs.map((d: any) => ({
+      testimonials = docs.map((d: TestimonialDoc) => ({
         name: d.name,
         role: d.role || '',
         quote: d.quote,

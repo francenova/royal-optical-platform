@@ -1,5 +1,27 @@
 import { CatalogClient } from './CatalogClient';
 import { FALLBACK_FRAMES, LENSES as FALLBACK_LENSES, CONTACT_LENSES as FALLBACK_CONTACTS } from './catalogData';
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
+
+interface FrameDoc {
+  code?: string;
+  label: string;
+  size?: string;
+  image: SanityImageSource;
+}
+
+interface LensDoc {
+  code?: string;
+  label: string;
+  image: SanityImageSource;
+}
+
+interface ContactLensDoc {
+  code?: string;
+  label: string;
+  description?: string;
+  icon?: string;
+  image: SanityImageSource;
+}
 
 export async function Catalog() {
   let frames = FALLBACK_FRAMES;
@@ -17,27 +39,27 @@ export async function Catalog() {
     ]);
 
     if (frameDocs?.length) {
-      frames = frameDocs.map((f: any) => ({
+      frames = frameDocs.map((f: FrameDoc) => ({
         code: f.code || '',
         label: f.label,
-        alt: f.label,
+        alt: `${f.label} eyewear frame at Royal Opticals`,
         size: f.size === 'large' ? ('large' as const) : ('small' as const),
         src: urlFor(f.image).width(800).height(800).url(),
       }));
     }
     if (lensDocs?.length) {
-      lenses = lensDocs.map((l: any) => ({
+      lenses = lensDocs.map((l: LensDoc) => ({
         code: l.code || '',
         label: l.label,
-        alt: l.label,
+        alt: `${l.label} optical lens`,
         src: urlFor(l.image).width(600).height(600).url(),
       }));
     }
     if (contactDocs?.length) {
-      contacts = contactDocs.map((c: any) => ({
+      contacts = contactDocs.map((c: ContactLensDoc) => ({
         code: c.code || '',
         label: c.label,
-        alt: c.label,
+        alt: c.description ? `${c.label} — ${c.description}` : `${c.label} contact lenses`,
         description: c.description || '',
         icon: c.icon || 'visibility',
         src: urlFor(c.image).width(600).height(400).url(),

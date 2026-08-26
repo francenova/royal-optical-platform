@@ -2,7 +2,7 @@ import type { HeroSectionData } from '@/lib/siteSettings';
 import type { ContactSectionData } from '@/lib/siteSettings';
 import { urlFor } from '@/lib/sanity/client';
 
-const FALLBACK_HERO_IMAGE =
+export const FALLBACK_HERO_IMAGE =
   'https://lh3.googleusercontent.com/aida-public/AB6AXuDX3_5-hJobPa2qrQJgAHuhIWG3f4_-8BHexA67QGWDm69m_GbQFTjrLYBQs2ObbWJzc0jpJ5cykFvvtLB1TAdwkaqIA19yPUCYh5KK899YbwRYNssDkMae8eKwgB0irLb7qEBO5Q_lYpNqC_GW5dOIQN3xcHdAI_6803FlqNwo3eE6Z2RlYzjTmOnPtizblwV8TVJ8WiLtDOgy3beOJkRrJr-AurUnhFYZpT-r09p9l25SmEPrGafdm7BSsskjfaFN5BtcBrGhjiNw5A';
 
 export function Hero({
