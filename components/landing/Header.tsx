@@ -7,7 +7,7 @@ import { urlFor } from '@/lib/sanity/client';
 const NAV_LINKS = [
   { href: '#clinic', label: 'Clinic' },
   { href: '#services', label: 'Services' },
-  { href: '#catalog', label: 'Catalog' },
+  { href: '#full-catalog', label: 'Catalog' },
   { href: '#clinic', label: 'About' },
   { href: '#contact', label: 'Contact' },
 ];

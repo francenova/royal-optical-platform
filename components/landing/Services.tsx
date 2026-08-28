@@ -18,20 +18,25 @@ const FALLBACK_SERVICES = [
   { label: 'Vision Care Advice', src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAMXEtJ-N1g-SqZz8j2kCMTFw6R6OzTU2cmHjXdzPOE1tQSYZSNGBMdg7lsJaMVUnJJOXtCsySCOv5opaoDMRUsJdR3yub0IE35Ig3mgapzTKTH0mDrfr9bXDLqIYBaahytXHQQT0wMLCWihv2k--DQx28bGu21pY8NxfugpnV6Bs9PNRLVe9rBEI_ZKQcJfjaY19oqqN8-ajwOhSeHY9_s2ejpEwm3ev129RGC0ltxnCwdvswzslIE-MZgdzRic9h1wYkZN1NrjqE' },
 ];
 
-export async function Services() {
-  let services: { key: string; alt: string; label: string; src: string }[] = FALLBACK_SERVICES.map((s) => ({
-    key: s.label,
-    alt: `${s.label} — eye care service at Royal Opticals`,
-    label: s.label,
-    src: s.src,
-  }));
+export interface ServiceItem {
+  key: string;
+  alt: string;
+  label: string;
+  src: string;
+}
 
+/**
+ * Split out so app/page.tsx can fetch this once and reuse it both for
+ * rendering and for the Service/OfferCatalog JSON-LD, instead of querying
+ * Sanity twice for the same data.
+ */
+export async function getServicesData(): Promise<ServiceItem[]> {
   try {
     const { sanityClient, urlFor } = await import('@/lib/sanity/client');
     const { SERVICES_QUERY } = await import('@/lib/sanity/queries');
     const items = await sanityClient.fetch(SERVICES_QUERY);
     if (items?.length) {
-      services = items.map((item: { _id: string; title: string; image: SanityImageSource }) => ({
+      return items.map((item: { _id: string; title: string; image: SanityImageSource }) => ({
         key: item._id,
         alt: `${item.title} — eye care service at Royal Opticals`,
         label: item.title,
@@ -39,9 +44,17 @@ export async function Services() {
       }));
     }
   } catch {
-    // Sanity not reachable yet (no project connected, or empty dataset) — fallback data above is used.
+    // Sanity not reachable yet (no project connected, or empty dataset) — fallback data below is used.
   }
+  return FALLBACK_SERVICES.map((s) => ({
+    key: s.label,
+    alt: `${s.label} — eye care service at Royal Opticals`,
+    label: s.label,
+    src: s.src,
+  }));
+}
 
+export function Services({ services }: { services: ServiceItem[] }) {
   return (
     <section
       className="bg-surface-container py-12 md:py-20 px-margin-mobile md:px-margin-desktop"

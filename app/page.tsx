@@ -3,11 +3,11 @@ import { Header } from '@/components/landing/Header';
 import { Hero } from '@/components/landing/Hero';
 import { Founder } from '@/components/landing/Founder';
 import { StudioGallery } from '@/components/landing/StudioGallery';
-import { Services } from '@/components/landing/Services';
+import { Services, getServicesData } from '@/components/landing/Services';
 import { Catalog } from '@/components/landing/Catalog';
 import { CuratedCollections } from '@/components/landing/CuratedCollections';
 import { Testimonials } from '@/components/landing/Testimonials';
-import { FAQ } from '@/components/landing/FAQ';
+import { FAQ, getFaqs } from '@/components/landing/FAQ';
 import { ContactBooking } from '@/components/landing/ContactBooking';
 import { CTA } from '@/components/landing/CTA';
 import { Footer } from '@/components/landing/Footer';
@@ -54,19 +54,21 @@ function parseAddress(address: string) {
 export const revalidate = 60;
 
 export default async function LandingPage() {
-  const [hero, branding, founder, gallery, contact, footer] = await Promise.all([
+  const [hero, branding, founder, gallery, contact, footer, services, faqs] = await Promise.all([
     getHeroSection(),
     getBrandingSection(),
     getFounderSection(),
     getGallerySection(),
     getContactSection(),
     getFooterSection(),
+    getServicesData(),
+    getFaqs(),
   ]);
 
   const { streetAddress, addressLocality, addressRegion, postalCode } = parseAddress(contact.address);
-  const jsonLd = {
-    '@context': 'https://schema.org',
+  const businessJsonLd = {
     '@type': 'Optician',
+    '@id': `${SITE_URL}/#business`,
     name: branding.clinicName,
     image: hero.heroImage ? urlFor(hero.heroImage).width(1200).height(630).fit('crop').url() : FALLBACK_HERO_IMAGE,
     telephone: contact.phone,
@@ -81,6 +83,33 @@ export default async function LandingPage() {
     },
     url: SITE_URL,
     priceRange: '$$',
+    // Lists the clinic's services as an Offer catalog — lets Google associate
+    // this business with each named service (eye exams, lens fitting, etc.)
+    // rather than just a generic name + address.
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Eye Care Services',
+      itemListElement: services.map((s) => ({
+        '@type': 'Offer',
+        itemOffered: { '@type': 'Service', name: s.label },
+      })),
+    },
+  };
+
+  // FAQPage schema is what makes Google eligible to show the Q&A as an
+  // expandable accordion directly in search results ("rich results").
+  const faqJsonLd = {
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  };
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [businessJsonLd, faqJsonLd],
   };
 
   return (
@@ -91,11 +120,11 @@ export default async function LandingPage() {
         <Hero hero={hero} contact={contact} />
         <Founder founder={founder} />
         <StudioGallery gallery={gallery} />
-        <Services />
+        <Services services={services} />
         <Catalog />
         <CuratedCollections />
         <Testimonials />
-        <FAQ />
+        <FAQ faqs={faqs} />
         <ContactBooking contact={contact} />
         <CTA />
       </main>
