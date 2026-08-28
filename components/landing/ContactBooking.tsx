@@ -4,7 +4,7 @@ import { useState } from 'react';
 import type { ContactSectionData } from '@/lib/siteSettings';
 import { safeHref } from '@/lib/safeHref';
 
-type SubmitState = 'idle' | 'sending' | 'sent' | 'error';
+type SubmitState = 'idle' | 'sending' | 'sent';
 
 export function ContactBooking({ contact }: { contact: ContactSectionData }) {
   const [form, setForm] = useState({ name: '', email: '', phone: '', service: '', date: '' });
@@ -36,7 +36,18 @@ export function ContactBooking({ contact }: { contact: ContactSectionData }) {
       setStatus('sent');
       setForm({ name: '', email: '', phone: '', service: '', date: '' });
     } catch {
-      setStatus('error');
+      // No email service configured (or a transient failure) — fall back to
+      // a pre-filled mailto so the visitor's request isn't just lost.
+      const subject = encodeURIComponent('Appointment Request - ' + (form.name || 'Royal Opticals Website'));
+      const body = encodeURIComponent(
+        'Name: ' + form.name + '\n' +
+          'Email: ' + form.email + '\n' +
+          'Phone: ' + (form.phone || 'Not provided') + '\n' +
+          'Service Required: ' + (form.service || 'Not specified') + '\n' +
+          'Preferred Date: ' + (form.date || 'Not specified')
+      );
+      window.location.href = `mailto:${contact.email}?subject=${subject}&body=${body}`;
+      setStatus('idle');
     }
   }
 
@@ -129,11 +140,6 @@ export function ContactBooking({ contact }: { contact: ContactSectionData }) {
               {status === 'sent' && (
                 <p className="mt-3 text-sm text-primary font-body-std" role="status">
                   Thanks — your request has been sent. We&apos;ll be in touch shortly.
-                </p>
-              )}
-              {status === 'error' && (
-                <p className="mt-3 text-sm text-red-600 font-body-std" role="alert">
-                  Something went wrong sending your request. Please call or WhatsApp us instead.
                 </p>
               )}
             </div>
