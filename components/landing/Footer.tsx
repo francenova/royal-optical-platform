@@ -78,7 +78,7 @@ export function Footer({
                 </a>
               </li>
               <li>
-                <a className="hover:text-surface-container-lowest hover:translate-x-1 transition-all duration-200 block" href="#catalog">
+                <a className="hover:text-surface-container-lowest hover:translate-x-1 transition-all duration-200 block" href="#full-catalog">
                   Catalog
                 </a>
               </li>
